@@ -104,8 +104,10 @@ namespace jp.zabaglione.ui.core.foundation
             gameObject.SetActive(true);
             
             float actualDuration = duration ?? _animationDuration;
+            
+            // DOTween's CanvasGroup extension might not be available, so we'll use a custom tween
             return RegisterTween(
-                CanvasGroup.DOFade(1f, actualDuration)
+                DOTween.To(() => CanvasGroup.alpha, x => CanvasGroup.alpha = x, 1f, actualDuration)
                     .SetEase(Ease.OutQuad)
                     .OnStart(() => OnShowStart())
                     .OnComplete(() => OnShowComplete())
@@ -120,8 +122,10 @@ namespace jp.zabaglione.ui.core.foundation
             KillAllTweens();
             
             float actualDuration = duration ?? _animationDuration;
+            
+            // DOTween's CanvasGroup extension might not be available, so we'll use a custom tween
             return RegisterTween(
-                CanvasGroup.DOFade(0f, actualDuration)
+                DOTween.To(() => CanvasGroup.alpha, x => CanvasGroup.alpha = x, 0f, actualDuration)
                     .SetEase(Ease.InQuad)
                     .OnStart(() => OnHideStart())
                     .OnComplete(() =>

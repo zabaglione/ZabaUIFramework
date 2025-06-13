@@ -34,7 +34,10 @@ namespace jp.zabaglione.ui.core.foundation.tests
         {
             public Tween CreateTestTween()
             {
-                return RegisterTween(transform.DOScale(Vector3.one * 2f, 0.1f));
+                // Use DOTween.To instead of extension method
+                return RegisterTween(
+                    DOTween.To(() => transform.localScale, x => transform.localScale = x, Vector3.one * 2f, 0.1f)
+                );
             }
 
             public void TestKillAll(bool complete = false)

@@ -23,6 +23,11 @@ This framework requires DOTween. Please install it first:
 2. Download and import DOTween into your project
 3. Or install via Asset Store: https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676
 
+**Important**: After importing DOTween, make sure to:
+1. Run Setup from Tools > Demigiant > DOTween Utility Panel
+2. Click "Setup DOTween..." and apply settings
+3. This ensures all DOTween modules are properly initialized
+
 ## Installation
 
 ### Via Unity Package Manager (Git URL)
