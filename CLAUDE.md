@@ -728,3 +728,61 @@ namespace jp.zabaglione.ui.integration.tests
 ---
 
 **注意**: 各タスクは必ずテスト完了確認後に次へ進むこと。品質を担保した段階的な開発を心がける。全クラスは適切な名前空間(`jp.zabaglione.ui.*`)を使用し、UPMパッケージとして適切なフォルダー構成を維持する。Unity 6.0専用機能を積極活用し、従来バージョンとの互換性は考慮しない。
+
+## Unity Metaファイル生成ルール
+
+### 重要: 全てのファイル・フォルダにmetaファイルが必要
+
+UnityはAsset管理のために、全てのファイルとフォルダに対して`.meta`ファイルを必要とします。
+
+### Metaファイル生成ルール
+
+1. **新規ファイル作成時**: 必ず対応する`.meta`ファイルも同時に作成する
+2. **新規フォルダ作成時**: 必ず対応する`.meta`ファイルも同時に作成する
+3. **GUIDの生成**: 各metaファイルには一意のGUID（32文字の16進数）を生成する
+
+### Metaファイルテンプレート
+
+#### ファイル用（.cs, .asmdef, .json等）
+```yaml
+fileFormatVersion: 2
+guid: [32文字の一意な16進数]
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+```
+
+#### フォルダ用
+```yaml
+fileFormatVersion: 2
+guid: [32文字の一意な16進数]
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+```
+
+#### ScriptableObject用（.asset）
+```yaml
+fileFormatVersion: 2
+guid: [32文字の一意な16進数]
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+```
+
+### GUID生成方法
+- 32文字の16進数文字列（0-9, a-f）
+- 例: `a1b2c3d4e5f6789012345678abcdef01`
+- 必ず一意であること（既存のGUIDと重複しない）

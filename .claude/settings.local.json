@@ -13,7 +13,9 @@
       "Bash(gh repo set-default:*)",
       "Bash(gh repo edit:*)",
       "Bash(gh repo view:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(python3:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

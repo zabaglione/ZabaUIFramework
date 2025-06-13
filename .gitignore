@@ -11,6 +11,9 @@
 # Never ignore Asset meta files
 !/[Aa]ssets/**/*.meta
 
+# Include all meta files in the package
+!com.zabaglione.ui-framework/**/*.meta
+
 # Visual Studio cache directory
 .vs/
 
