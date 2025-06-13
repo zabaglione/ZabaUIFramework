@@ -13,7 +13,15 @@ MVVM + DOTween + Theme System integrated UI framework for Unity UGUI (Unity 6.0+
 ## Requirements
 
 - Unity 6000.0 or higher
-- DOTween (automatically installed as dependency)
+- DOTween (must be installed separately)
+
+### DOTween Installation
+
+This framework requires DOTween. Please install it first:
+
+1. Go to [DOTween official page](http://dotween.demigiant.com/download.php)
+2. Download and import DOTween into your project
+3. Or install via Asset Store: https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676
 
 ## Installation
 

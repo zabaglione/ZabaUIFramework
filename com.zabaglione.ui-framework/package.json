@@ -8,9 +8,7 @@
   "documentationUrl": "https://zabaglione.github.io/ui-framework/",
   "changelogUrl": "https://zabaglione.github.io/ui-framework/CHANGELOG.html",
   "licensesUrl": "https://zabaglione.github.io/ui-framework/LICENSE.html",
-  "dependencies": {
-    "com.demigiant.dotween": "1.2.765"
-  },
+  "dependencies": {},
   "keywords": [
     "ui",
     "ugui",
