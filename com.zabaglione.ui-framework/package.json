@@ -1,0 +1,44 @@
+{
+  "name": "com.zabaglione.ui-framework",
+  "version": "1.0.0",
+  "displayName": "ZabaUI Framework",
+  "description": "MVVM + DOTween + Theme System integrated UI framework for Unity UGUI (Unity 6.0+)",
+  "unity": "6000.0",
+  "unityRelease": "0f1",
+  "documentationUrl": "https://zabaglione.github.io/ui-framework/",
+  "changelogUrl": "https://zabaglione.github.io/ui-framework/CHANGELOG.html",
+  "licensesUrl": "https://zabaglione.github.io/ui-framework/LICENSE.html",
+  "dependencies": {
+    "com.demigiant.dotween": "1.2.765"
+  },
+  "keywords": [
+    "ui",
+    "ugui",
+    "mvvm",
+    "framework",
+    "theme",
+    "animation",
+    "unity6"
+  ],
+  "author": {
+    "name": "Zabaglione",
+    "email": "support@zabaglione.jp"
+  },
+  "samples": [
+    {
+      "displayName": "Basic Components",
+      "description": "Basic UI components showcase (Unity 6.0+)",
+      "path": "Samples~/BasicComponents"
+    },
+    {
+      "displayName": "MVVM Example",
+      "description": "MVVM pattern implementation example (Unity 6.0+)",
+      "path": "Samples~/MVVMExample"
+    },
+    {
+      "displayName": "Theme System",
+      "description": "Theme system usage example (Unity 6.0+)",
+      "path": "Samples~/ThemeSystem"
+    }
+  ]
+}
