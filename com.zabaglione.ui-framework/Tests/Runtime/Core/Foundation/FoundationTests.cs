@@ -208,10 +208,10 @@ namespace jp.zabaglione.ui.core.foundation.tests
             bool propertyChangedRaised = false;
             string changedPropertyName = null;
             
-            viewModel.PropertyChanged += (s, e) =>
+            viewModel.PropertyChanged += (propertyName) =>
             {
                 propertyChangedRaised = true;
-                changedPropertyName = e.PropertyName;
+                changedPropertyName = propertyName;
             };
             
             viewModel.TestProperty = "NewValue";
@@ -228,7 +228,7 @@ namespace jp.zabaglione.ui.core.foundation.tests
             viewModel.TestProperty = "Value";
             
             bool propertyChangedRaised = false;
-            viewModel.PropertyChanged += (s, e) => propertyChangedRaised = true;
+            viewModel.PropertyChanged += (propertyName) => propertyChangedRaised = true;
             
             viewModel.TestProperty = "Value";
             

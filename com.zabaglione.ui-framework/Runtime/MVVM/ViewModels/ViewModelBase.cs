@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using jp.zabaglione.ui.core.binding;
 
 namespace jp.zabaglione.ui.mvvm.viewmodels
 {
@@ -18,7 +18,7 @@ namespace jp.zabaglione.ui.mvvm.viewmodels
         /// <summary>
         /// Occurs when a property value changes
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event Action<string> PropertyChanged;
 
         /// <summary>
         /// Gets or sets whether the ViewModel is busy
@@ -101,7 +101,7 @@ namespace jp.zabaglione.ui.mvvm.viewmodels
         /// <param name="propertyName">The property name</param>
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(propertyName);
         }
 
         /// <summary>
