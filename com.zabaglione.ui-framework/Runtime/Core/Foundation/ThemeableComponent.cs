@@ -1,18 +1,19 @@
 using System;
 using UnityEngine;
+using jp.zabaglione.ui.core.theme;
 
 namespace jp.zabaglione.ui.core.foundation
 {
     /// <summary>
     /// Base component for UI elements that support theming
     /// </summary>
-    public abstract class ThemeableComponent : MonoBehaviour
+    public abstract class ThemeableComponent : MonoBehaviour, IThemeable
     {
         [SerializeField]
         private bool _autoApplyTheme = true;
 
         private bool _isThemeApplied = false;
-        private object _currentTheme = null;
+        private UIThemeData _currentTheme = null;
 
         /// <summary>
         /// Whether to automatically apply theme changes
@@ -61,17 +62,28 @@ namespace jp.zabaglione.ui.core.foundation
         /// Called when the theme needs to be applied
         /// </summary>
         /// <param name="theme">The theme data to apply</param>
-        protected abstract void OnApplyTheme(object theme);
+        protected abstract void OnApplyTheme(UIThemeData theme);
 
         /// <summary>
         /// Gets the current theme from the theme manager
         /// </summary>
         /// <returns>The current theme data</returns>
-        protected virtual object GetCurrentTheme()
+        protected virtual UIThemeData GetCurrentTheme()
         {
-            // This will be implemented when we have the ThemeManager
-            // For now, return null to allow testing
-            return null;
+            var themeManager = UIThemeManager.Instance;
+            return themeManager != null ? themeManager.CurrentTheme : null;
+        }
+
+        /// <summary>
+        /// IThemeable implementation
+        /// </summary>
+        public void ApplyTheme(UIThemeData theme)
+        {
+            if (theme == null) return;
+            
+            _currentTheme = theme;
+            _isThemeApplied = false;
+            ApplyTheme();
         }
 
         /// <summary>
@@ -96,10 +108,19 @@ namespace jp.zabaglione.ui.core.foundation
 
         protected virtual void OnEnable()
         {
+            // Register with theme manager
+            UIThemeManager.Instance?.RegisterThemeableComponent(this);
+            
             if (_autoApplyTheme && !_isThemeApplied)
             {
                 ApplyTheme();
             }
+        }
+
+        protected virtual void OnDisable()
+        {
+            // Unregister from theme manager
+            UIThemeManager.Instance?.UnregisterThemeableComponent(this);
         }
 
         protected virtual void Start()

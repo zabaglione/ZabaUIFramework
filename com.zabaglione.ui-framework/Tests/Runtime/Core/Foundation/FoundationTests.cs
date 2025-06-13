@@ -3,6 +3,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using jp.zabaglione.ui.core.foundation;
+using jp.zabaglione.ui.core.theme;
 using jp.zabaglione.ui.mvvm.viewmodels;
 using DG.Tweening;
 
@@ -136,17 +137,17 @@ namespace jp.zabaglione.ui.core.foundation.tests
         private class TestThemeable : ThemeableComponent
         {
             public bool ThemeApplied { get; private set; }
-            public object LastAppliedTheme { get; private set; }
+            public UIThemeData LastAppliedTheme { get; private set; }
 
-            protected override void OnApplyTheme(object theme)
+            protected override void OnApplyTheme(UIThemeData theme)
             {
                 ThemeApplied = true;
                 LastAppliedTheme = theme;
             }
 
-            protected override object GetCurrentTheme()
+            protected override UIThemeData GetCurrentTheme()
             {
-                return "TestTheme";
+                return ScriptableObject.CreateInstance<UIThemeData>();
             }
         }
 
@@ -158,7 +159,7 @@ namespace jp.zabaglione.ui.core.foundation.tests
             themeable.ApplyTheme();
             
             Assert.IsTrue(themeable.ThemeApplied);
-            Assert.AreEqual("TestTheme", themeable.LastAppliedTheme);
+            Assert.IsNotNull(themeable.LastAppliedTheme);
         }
 
         [Test]
@@ -176,8 +177,8 @@ namespace jp.zabaglione.ui.core.foundation.tests
 
         private class TestThemeableNull : ThemeableComponent
         {
-            protected override void OnApplyTheme(object theme) { }
-            protected override object GetCurrentTheme() => null;
+            protected override void OnApplyTheme(UIThemeData theme) { }
+            protected override UIThemeData GetCurrentTheme() => null;
         }
 
         #endregion
@@ -268,7 +269,7 @@ namespace jp.zabaglione.ui.core.foundation.tests
         {
             public bool ThemeApplied { get; private set; }
             
-            protected override void OnApplyTheme(object theme)
+            protected override void OnApplyTheme(UIThemeData theme)
             {
                 ThemeApplied = true;
             }

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using jp.zabaglione.ui.core.theme;
 
 namespace jp.zabaglione.ui.core.foundation
 {
@@ -9,7 +10,7 @@ namespace jp.zabaglione.ui.core.foundation
     /// Base class for all UI components combining animation and theme support
     /// </summary>
     [RequireComponent(typeof(RectTransform))]
-    public abstract class UIComponent : TweenManagerComponent
+    public abstract class UIComponent : TweenManagerComponent, IThemeable
     {
         [Header("UI Component Settings")]
         [SerializeField]
@@ -24,7 +25,7 @@ namespace jp.zabaglione.ui.core.foundation
         private RectTransform _rectTransform;
         private CanvasGroup _canvasGroup;
         private bool _isThemeApplied = false;
-        private object _currentTheme = null;
+        private UIThemeData _currentTheme = null;
         private bool _isInitialized = false;
 
         /// <summary>
@@ -168,15 +169,27 @@ namespace jp.zabaglione.ui.core.foundation
         /// <summary>
         /// Called when the theme needs to be applied
         /// </summary>
-        protected abstract void OnApplyTheme(object theme);
+        protected abstract void OnApplyTheme(UIThemeData theme);
 
         /// <summary>
         /// Gets the current theme from the theme manager
         /// </summary>
-        protected virtual object GetCurrentTheme()
+        protected virtual UIThemeData GetCurrentTheme()
         {
-            // Will be implemented with ThemeManager
-            return null;
+            var themeManager = UIThemeManager.Instance;
+            return themeManager != null ? themeManager.CurrentTheme : null;
+        }
+
+        /// <summary>
+        /// IThemeable implementation
+        /// </summary>
+        void IThemeable.ApplyTheme(UIThemeData theme)
+        {
+            if (theme == null) return;
+            
+            _currentTheme = theme;
+            _isThemeApplied = false;
+            ApplyTheme();
         }
 
         /// <summary>
@@ -213,6 +226,9 @@ namespace jp.zabaglione.ui.core.foundation
         {
             base.OnEnable();
             
+            // Register with theme manager
+            UIThemeManager.Instance?.RegisterThemeableComponent(this);
+            
             if (_autoApplyTheme && !_isThemeApplied)
             {
                 ApplyTheme();
@@ -223,6 +239,14 @@ namespace jp.zabaglione.ui.core.foundation
                 CanvasGroup.alpha = 0f;
                 Show();
             }
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            
+            // Unregister from theme manager
+            UIThemeManager.Instance?.UnregisterThemeableComponent(this);
         }
 
         protected virtual void Start()
